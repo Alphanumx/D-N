@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inscription Ultra Animée</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    /* === Fade-out Transition === */
+    .fade-out {
+      animation: fadeOut 1s forwards;
+    }
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      margin: 10px;
+      font-family: 'Inter', sans-serif;
+      background-color: #0d0d0d;
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .form-container {
+      background-color: #1a1a1a;
+      padding: 4rem 4rem;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 1000px;
+      box-shadow: 0 0 80px rgba(58, 143, 211, 0.8);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      font-weight: 700;
+      font-size: 2.5rem;
+      color: #3a8fd3;
+      text-shadow: 0 0 8px #3a8fd3, 0 0 15px #2a73b9;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 1rem;
+      background: transparent;
+      border: 2px solid #444;
+      border-radius: 10px;
+      color: #eee;
+      font-size: 1.2rem;
+    }
+
+    input:focus {
+      border-color: #3a8fd3;
+      box-shadow: 0 0 12px #3a8fd3;
+    }
+
+    label {
+      position: absolute;
+      top: 50%;
+      left: 18px;
+      transform: translateY(-50%);
+      color: #aaa;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+      top: -14px;
+      left: 12px;
+      font-size: 0.8rem;
+      color: #3a8fd3;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-right: 0.8rem;
+      accent-color: #3a8fd3;
+    }
+
+    .checkbox-container label {
+      position: static;
+      font-size: 1rem;
+      color: #eee;
+    }
+
+    .checkbox-container a {
+      color: #f0c674;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .checkbox-container a:hover {
+      color: #ffd97d;
+      text-shadow: 0 0 4px #ffd97d;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #3a8fd3, #6ab0ff);
+      color: #fff;
+      padding: 1rem 0;
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #6ab0ff, #3a8fd3);
+      transform: scale(1.05);
+    }
+
+    #continue-guest {
+      background: linear-gradient(135deg, #ff7a7a, #ff4a4a);
+      box-shadow: 0 0 25px #ff4a4a, 0 0 50px #ff7a7a;
+    }
+
+    #continue-guest:hover {
+      box-shadow: 0 0 35px #ff4a4a, 0 0 60px #ff7a7a;
+    }
+  </style>
+</head>
+<body>
+  <div id="page-content">
+    <div class="form-container">
+      <h2>Créer un compte</h2>
+
+      <div class="form-group">
+        <input type="text" id="username" placeholder=" " required autocomplete="off" />
+        <label for="username">Nom d'utilisateur</label>
+      </div>
+
+      <div class="form-group">
+        <input type="email" id="email" placeholder=" " required autocomplete="off" />
+        <label for="email">Adresse e-mail</label>
+      </div>
+
+      <div class="form-group">
+        <input type="password" id="password" placeholder=" " required autocomplete="off" />
+        <label for="password">Mot de passe</label>
+      </div>
+
+      <!-- Case à cocher juste en dessous du mot de passe -->
+      <div class="checkbox-container">
+        <input type="checkbox" id="terms" required />
+        <label for="terms">J'accepte les <a href="#">conditions générales</a></label>
+      </div>
+
+      <button class="btn" id="btn-inscription">S'inscrire</button>
+      <button class="btn" id="continue-guest">Continuer sans s'inscrire</button>
+    </div>
+  </div>
+
+  <script>
+    // Redirection avec animation
+    const continueGuestBtn = document.getElementById("continue-guest");
+    continueGuestBtn.addEventListener("click", () => {
+      const page = document.getElementById("page-content");
+      page.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = "Site2.html";
+      }, 1000);
+    });
+
+    // Animation d’entrée du formulaire
+    gsap.fromTo(
+      ".form-container",
+      {opacity: 0, y: 70, scale: 0.85},
+      {opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "elastic.out(1, 0.5)"}
+    );
+  </script>
+</body>
+</html>
